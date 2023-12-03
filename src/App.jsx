@@ -1,22 +1,19 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import StudentForm from "./StudentForm.jsx";
+import Results from "./Results.jsx";
+import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function App() {
   return (
     <>
-      <header>Student Data Form</header>
+      <header><h1>Student Data Form</h1></header>
       <main>
-        <article>
-          <section></section>
-          <section></section>
-        </article>
+        <div class="container">
+          <div class="container-item"><StudentForm></StudentForm></div>
+          <div class="container-item"><Results></Results></div>
+        </div>
       </main>
     </>
   )
-}
+};
 
-export default App
+ App;
