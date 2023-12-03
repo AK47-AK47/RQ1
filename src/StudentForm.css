@@ -3,6 +3,9 @@
     flex-direction: column;
   }
 
-.form-item{
-    
-}
+  .error{
+    padding:30px 0 30px 0;
+  }
+
+
+
