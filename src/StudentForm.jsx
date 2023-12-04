@@ -67,7 +67,7 @@ export default function StudentForm(props) {
         
         //if there are errors (validation is false), im not on submit status
         if (newErrors.isValid === false) { onSubmitStatus = false }
-        //set up the error of validation
+        //set up the errors of validation
         setErrors(newErrors);
         //if im on submit status, set focus on first input field
         if (onSubmitStatus) { firstnameRef.current.focus(); }
