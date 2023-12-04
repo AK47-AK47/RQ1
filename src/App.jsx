@@ -11,14 +11,21 @@ export default function App() {
     isValid: false,
     onSubmit: false,
   });
+
+  const [resultsData, setResultsData] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    isValid: false,
+  });
   
   return (
     <>
       <header><h1>Student Data Form</h1></header>
       <main>
         <div className="container">
-          <div className="container-item"><StudentForm formData={formData} setFormData={setFormData} ></StudentForm></div>
-          <div className="container-item"><Results formData={formData} ></Results></div>
+          <div className="container-item"><StudentForm formData={formData} setFormData={setFormData} setResultsData={setResultsData} ></StudentForm></div>
+          <div className="container-item"><Results resultsData={resultsData} ></Results></div>
         </div>
       </main>
     </>

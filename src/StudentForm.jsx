@@ -2,12 +2,21 @@ import './StudentForm.css';
 import { useState, useRef } from 'react';
 
 export default function StudentForm(props) {
+
     const [errors, setErrors] = useState({
         firstnameError: false,
         lastnameError: false,
         emailError: false,
         isValid: true,
     });
+
+    const initialData = {
+        firstname: "",
+        lastname: "",
+        email: "",
+        isValid: false,
+        onSubmit: false,
+    };
     const firstnameRef = useRef();
     const lastnameRef = useRef();
     const emailRef = useRef();
@@ -63,20 +72,23 @@ export default function StudentForm(props) {
         else {
             //no errors, so remove style and no focus anymore
             firstnameRef.current.style.border = "";
-         }
+        }
         
         //if there are errors (validation is false), im not on submit status
         if (newErrors.isValid === false) { onSubmitStatus = false }
         //set up the error of validation
-        setErrors(newErrors);
-        //if im on submit status, set focus on first input field
-        if (onSubmitStatus) { firstnameRef.current.focus(); }
-        //set up new form data(isValid and onSubmit) after validation
-        props.setFormData({ ...formData, isValid: newErrors.isValid, onSubmit:onSubmitStatus });
+        setErrors({...newErrors});
+        //if im on submit status, set focus on first input field and set form data to empty(initialData)
+        if (onSubmitStatus) {
+            firstnameRef.current.focus();
+            props.setFormData({ ...initialData });
+        }
+        //set up the results Data
+        props.setResultsData({ ...formData, isValid: newErrors.isValid });
     }
 
     function handleOnChange(e) {
-        const newFormData = { ...props.formData, [e.target.id]:e.target.value };
+        const newFormData = { ...props.formData, [e.target.id]:e.target.value, isValid:false, onSubmit:false};
         props.setFormData(newFormData);
     }
     
