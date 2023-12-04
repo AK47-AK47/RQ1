@@ -1,5 +1,4 @@
 export default function Results(props) {
-    console.log("oon results", props.formData);
     return (
         <>
             <p>First Name: {props.formData.isValid ? props.formData.firstname : ""}</p>

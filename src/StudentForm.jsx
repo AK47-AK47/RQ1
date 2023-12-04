@@ -7,7 +7,6 @@ export default function StudentForm(props) {
         lastnameError: false,
         emailError: false,
         isValid: true,
-        //onSubmit: false,
     });
     const firstnameRef = useRef();
     const lastnameRef = useRef();
@@ -19,50 +18,60 @@ export default function StudentForm(props) {
     }
 
     function validateForm(formData) {
-        console.log("before valid...",formData);
-        
+                
         let fName = formData.firstname;
         let lName = formData.lastname;
         let email = formData.email;
+        //new errors obj(can mutate it) to use it on setErrors
         let newErrors = { firstnameError: false, lastnameError: false, emailError: false, isValid:true,};
 
+        //regEx for validations
         const validEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
         const validText = (/^[a-zA-Z]+$/);
+        //to check if I can on submit(no errors) or not(errors)
         let onSubmitStatus = true;
 
         if (!validEmail.test(email)) {
             newErrors.emailError = true;
             newErrors.isValid = false;
+            //set focus on this input field + style it
             emailRef.current.focus();
             emailRef.current.style.border = "1px solid red";
         }
         else {
+            //no errors, so remove style and no focus anymore
             emailRef.current.style.border = "";
         }
         if (!validText.test(lName)) {
             newErrors.lastnameError = true;
             newErrors.isValid = false;
+            //set focus on this input field + style it
             lastnameRef.current.focus();
             lastnameRef.current.style.border = "1px solid red";
         }
         else {
+            //no errors, so remove style and no focus anymore
             lastnameRef.current.style.border = "";
         }
         if (!validText.test(fName)) {
             newErrors.firstnameError = true;
             newErrors.isValid = false;
+             //set focus on this input field + style it
             firstnameRef.current.focus();
             firstnameRef.current.style.border = "1px solid red";
         }
         else {
+            //no errors, so remove style and no focus anymore
             firstnameRef.current.style.border = "";
          }
         
-        console.log("after valid..", formData)
-        
+        //if there are errors (validation is false), im not on submit status
         if (newErrors.isValid === false) { onSubmitStatus = false }
+        //set up the error of validation
         setErrors(newErrors);
-        if (onSubmitStatus){ firstnameRef.current.focus();}
+        //if im on submit status, set focus on first input field
+        if (onSubmitStatus) { firstnameRef.current.focus(); }
+        //set up new form data(isValid and onSubmit) after validation
         props.setFormData({ ...formData, isValid: newErrors.isValid, onSubmit:onSubmitStatus });
     }
 

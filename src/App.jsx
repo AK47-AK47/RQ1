@@ -8,7 +8,8 @@ export default function App() {
     firstname: "",
     lastname: "",
     email: "",
-    isValid:false,
+    isValid: false,
+    onSubmit: false,
   });
   
   return (
