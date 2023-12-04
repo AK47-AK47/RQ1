@@ -2,12 +2,6 @@ import './StudentForm.css';
 import { useState } from 'react';
 
 export default function StudentForm(props) {
-    const initialValues = {
-        firstnameError: "",
-        lastnameError: "",
-        emailError: "",
-    };
-
     const [errors, setErrors] = useState({
         firstnameError: false,
         lastnameError: false,
@@ -58,21 +52,28 @@ export default function StudentForm(props) {
     
     return (
         <form className="form" onSubmit={submitForm}>
-            <div className="form-item">
+            <div className="form-row">
                 <label htmlFor="firstname">First Name: </label>
-                <input id="firstname" value={props.formData.onSubmit ? "" : props.formData.firstname} onChange={handleOnChange} />
+                <input id="firstname" value={props.formData.onSubmit ? "" : props.formData.firstname} onChange={handleOnChange} autoFocus/>
             </div>
-            <span className="error">{errors.firstnameError ? "This Field is required!" : ""}</span>
-            <div className="form-item">
+            <div className="error">
+                <span>{errors.firstnameError ? "This Field is required!" : ""}</span>
+            </div>
+            <div className="form-row">
                 <label htmlFor="lastname">Last Name: </label>
                 <input id="lastname" value={props.formData.onSubmit ? "" : props.formData.lastname} onChange={handleOnChange} />
             </div>
-            <span className="error">{errors.lastnameError ? "This Field is required!" : ""}</span>
-            <div className="form-item">
+            <div className="error">
+                <span>{errors.lastnameError ? "This Field is required!" : ""}</span>
+            </div>
+            
+            <div className="form-row">
                 <label htmlFor="email">Email: </label>
                 <input id="email" value={props.formData.onSubmit ? "" : props.formData.email} onChange={handleOnChange} />
             </div>
-            <span className="error">{errors.emailError ? "This Field is required! Fill in a proper email": ""}</span>
+            <div className="error">
+            <span>{errors.emailError ? "This Field is required! Fill in a proper email" : ""}</span>
+            </div>
             <button type="submit" >Submit</button>
         </form>
     );
