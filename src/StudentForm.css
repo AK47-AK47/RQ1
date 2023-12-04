@@ -1,0 +1,11 @@
+.form{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .error{
+    padding:30px 0 30px 0;
+  }
+
+
+
