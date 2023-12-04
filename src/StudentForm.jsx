@@ -92,8 +92,10 @@ export default function StudentForm(props) {
             firstnameRef.current.focus();
             setFormData({ ...initialData });
         }
-        //set up the results Data
-        props.setResultsData({ ...formData, isValid: newErrors.isValid });
+        //IF no errors (isValid:true) then set up the results Data
+        if (newErrors.isValid) {
+            props.setResultsData({ ...formData, isValid: newErrors.isValid });
+        }
     }
 
     function handleOnChange(e) {
