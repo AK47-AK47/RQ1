@@ -7,24 +7,26 @@ export default function StudentForm(props) {
         firstnameError: false,
         lastnameError: false,
         emailError: false,
+        isValid: true,
     });
     
     console.log(errors);
     console.log(props.formData);
 
-    function submitForm() {
-        //validate
+    //props.setIsValid(errors.isValid);
+
+    function submitForm(event) {
+        event.preventDefault();
+        validateForm(props.formData);
     }
 
-    function validateForm(event) {
-        event.preventDefault();
+    function validateForm(formData) {
+        console.log(formData);
         
-        console.log(props.formData);
-        
-        let fName = props.formData.firstname;
-        let lName = props.formData.lastname;
-        let email = props.formData.email;
-        let newErrors = { firstnameError: false, lastnameError: false, emailError: false };
+        let fName = formData.firstname;
+        let lName = formData.lastname;
+        let email = formData.email;
+        let newErrors = { firstnameError: false, lastnameError: false, emailError: false, isValid:true };
 
         const validEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
         const validText = (/^[a-zA-Z]+$/);
@@ -32,29 +34,31 @@ export default function StudentForm(props) {
         if(!validEmail.test(email)){
             console.log("email error");
             newErrors.emailError = true;
+            newErrors.isValid = false;
         }
         if(!validText.test(fName)) {
             console.log("firstNAme error");
             newErrors.firstnameError = true;
+            newErrors.isValid = false;
         }
         if(!validText.test(lName)) {
             console.log("LastName error");
             newErrors.lastnameError = true;
+            newErrors.isValid = false;
         }
+        console.log("onError valid..",formData)
         setErrors(newErrors);
-        //change isvalid somehow....
+        props.setFormData({ ...formData, isValid: newErrors.isValid });
     }
 
     function handleOnChange(e) {
-        
         const newFormData = { ...props.formData, [e.target.id]:e.target.value };
-        
         props.setFormData(newFormData);
     }
 
 
     return (
-        <form className="form" onSubmit={validateForm}>
+        <form className="form" onSubmit={submitForm}>
             <div className="form-item">
                 <label htmlFor="firstname">First Name: </label>
                 <input id="firstname" value={props.formData.firstname} onChange={handleOnChange} />

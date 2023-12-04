@@ -8,14 +8,16 @@ export default function App() {
     firstname: "",
     lastname: "",
     email: "",
+    isValid:false,
   });
+  const [isValid, setIsValid] = useState(false);
   return (
     <>
       <header><h1>Student Data Form</h1></header>
       <main>
         <div className="container">
-          <div className="container-item"><StudentForm formData={formData} setFormData={setFormData}></StudentForm></div>
-          <div className="container-item"><Results formData={formData} isValid={false}></Results></div>
+          <div className="container-item"><StudentForm formData={formData} setFormData={setFormData} ></StudentForm></div>
+          <div className="container-item"><Results formData={formData} ></Results></div>
         </div>
       </main>
     </>
