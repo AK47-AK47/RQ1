@@ -10,7 +10,7 @@ export default function App() {
     email: "",
     isValid:false,
   });
-  const [isValid, setIsValid] = useState(false);
+  
   return (
     <>
       <header><h1>Student Data Form</h1></header>
