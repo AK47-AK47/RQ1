@@ -17,13 +17,22 @@ export default function StudentForm(props) {
         isValid: false,
         onSubmit: false,
     };
+
+    const [formData, setFormData] = useState({
+        firstname: "",
+        lastname: "",
+        email: "",
+        isValid: false,
+        onSubmit: false,
+    });
+    
     const firstnameRef = useRef();
     const lastnameRef = useRef();
     const emailRef = useRef();
     
     function submitForm(event) {
         event.preventDefault();
-        validateForm(props.formData);
+        validateForm(formData);
     }
 
     function validateForm(formData) {
@@ -81,15 +90,15 @@ export default function StudentForm(props) {
         //if im on submit status, set focus on first input field and set form data to empty(initialData)
         if (onSubmitStatus) {
             firstnameRef.current.focus();
-            props.setFormData({ ...initialData });
+            setFormData({ ...initialData });
         }
         //set up the results Data
         props.setResultsData({ ...formData, isValid: newErrors.isValid });
     }
 
     function handleOnChange(e) {
-        const newFormData = { ...props.formData, [e.target.id]:e.target.value, isValid:false, onSubmit:false};
-        props.setFormData(newFormData);
+        const newFormData = { ...formData, [e.target.id]:e.target.value, isValid:false, onSubmit:false};
+        setFormData(newFormData);
     }
     
     return (
@@ -97,14 +106,14 @@ export default function StudentForm(props) {
             
             <div className="form-row">
                 <label htmlFor="firstname">First Name: </label>
-                <input id="firstname" value={props.formData.onSubmit ? "" : props.formData.firstname} onChange={handleOnChange} autoFocus ref={firstnameRef}/>
+                <input id="firstname" value={formData.onSubmit ? "" : formData.firstname} onChange={handleOnChange} autoFocus ref={firstnameRef}/>
             </div>
             <div className="error">
                 <span>{errors.firstnameError ? "This Field is required!" : ""}</span>
             </div>
             <div className="form-row">
                 <label htmlFor="lastname">Last Name: </label>
-                <input id="lastname" value={props.formData.onSubmit ? "" : props.formData.lastname} onChange={handleOnChange} ref={lastnameRef}/>
+                <input id="lastname" value={formData.onSubmit ? "" : formData.lastname} onChange={handleOnChange} ref={lastnameRef}/>
             </div>
             <div className="error">
                 <span>{errors.lastnameError ? "This Field is required!" : ""}</span>
@@ -112,7 +121,7 @@ export default function StudentForm(props) {
             
             <div className="form-row">
                 <label htmlFor="email">Email: </label>
-                <input id="email" value={props.formData.onSubmit ? "" : props.formData.email} onChange={handleOnChange} ref={emailRef}/>
+                <input id="email" value={formData.onSubmit ? "" : formData.email} onChange={handleOnChange} ref={emailRef}/>
             </div>
             <div className="error">
             <span>{errors.emailError ? "This Field is required! Fill in a proper email" : ""}</span>
